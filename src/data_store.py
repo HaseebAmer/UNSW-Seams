@@ -1,0 +1,123 @@
+import pickle
+'''
+data_store.py
+
+This contains a definition for a Datastore class which you should use to store your data.
+You don't need to understand how it works at this point, just how to use it :)
+
+The data_store variable is global, meaning that so long as you import it into any
+python file in src, you can access its contents.
+
+Example usage:
+
+    from data_store import data_store
+
+    store = data_store.get()
+    print(store) # Prints { 'names': ['Nick', 'Emily', 'Hayden', 'Rob'] }
+
+    names = store['names']
+
+    names.remove('Rob')
+    names.append('Jake')
+    names.sort()
+
+    print(store) # Prints { 'names': ['Emily', 'Hayden', 'Jake', 'Nick'] }
+    data_store.set(store)
+'''
+
+## YOU SHOULD MODIFY THIS OBJECT BELOW
+
+# initial_object = {
+#     'users': [
+#         {
+#             'first_name' : -1
+#             'last_name' : -1
+#             'email': -1,
+#             'password' : -1,
+#             'auth_user_id' : -1,
+#             'userdata': {'u_id': , 'email' : , 'handle', 'name_first': , name_last': , 'u_id': }
+#             'handle': -1,
+#             'in_channels' : [],
+#             'global_perms': 1 or 2
+#             'session_count':
+#             'session_id': []
+#             'tokens': []
+#             'notifications': []
+#         },
+#     ],
+#     'channels': [
+#         {
+#             'is_public': -1,
+#             'name' : -1,
+#             'channel_id' : -1,
+#             'owners' : [ {'handle_str': 
+#                           'name_first':
+#                           'name_last':
+#                           'u_id': ,
+#                           'email': ,
+#                         }],
+#             'owner_perms': [],
+#             'messages' : [],
+#             'members' : [ {'handle_str': 
+#                           'name_first':
+#                           'name_last':
+#                           'u_id': ,
+#                           'email': ,
+#                         }], 
+#         },
+#     ],
+#       'dms' : [{
+#                   'dm_id': int
+#                   'name': str
+#                   'members' : [ { 'handle_str': 
+#                                   'name_first':
+#                                   'name_last':
+#                                   'u_id': ,
+#                                   'email': ,
+#                               }], 
+#                   'owners' : [ {  'handle_str': 
+#                                   'name_first':
+#                                   'name_last':
+#                                   'u_id': ,
+#                                   'email': ,
+#                                 }],
+#                   'messages' : []
+#                   'start': int
+#                   'end': int
+# 
+# 
+#               }]
+#     ],
+# }
+initial_object = {
+    'users': [],
+    'channels' : [],
+    'dms' : []
+}
+
+## YOU SHOULD MODIFY THIS OBJECT ABOVE
+
+## YOU ARE ALLOWED TO CHANGE THE BELOW IF YOU WISH
+class Datastore:
+    def __init__(self):
+        self.__store = initial_object
+
+    def get(self):
+        return self.__store
+
+    def set(self, store):
+        if not isinstance(store, dict):
+            raise TypeError('store must be of type dictionary')
+        self.__store = store
+
+print('Loading Datastore...')
+
+global data_store
+data_store = Datastore()
+
+def save():
+    data = data_store.get()
+    with open('datastore.p', 'wb') as FILE:
+        pickle.dump(data, FILE)
+    return {}
+
